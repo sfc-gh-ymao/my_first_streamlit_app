@@ -1,3 +1,3 @@
-import steamlit
+import streamlit
 
 streamlit.title('Hello World!')
