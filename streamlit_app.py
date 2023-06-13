@@ -68,10 +68,8 @@ def insert_row_snowflake(new_fruit):
         return "Thanks for adding " + new_fruit
 
  # Add the second button to add the fruit
-if streamlit.button('Insert into Fruit Load List'):
-    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-    insert_fruit_choice = streamlit.text_input('new fruit')
-    back_from_insert_function = insert_row_snowflake(insert_fruit_choice)
-    streamlit.dataframe(back_from_insert_function)
+insert_fruit_choice = streamlit.text_input('What fruit would you like insert into the load list?')
+back_from_insert_function = insert_row_snowflake(insert_fruit_choice)
+streamlit.dataframe(back_from_insert_function)
      
 streamlit.stop()
