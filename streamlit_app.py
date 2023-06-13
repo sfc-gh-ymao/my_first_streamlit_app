@@ -68,17 +68,10 @@ def insert_row_snowflake(new_fruit):
         return "Thanks for adding " + new_fruit
 
  # Add the second button to add the fruit
-streamlit.button('Insert into Fruit Load List'):
+if streamlit.button('Insert into Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-     try:
-        insert_fruit_choice = streamlit.text_input('new fruit')
-     if not insert_fruit_choice:
-         streamlit.error("Please insert a fruit")
-     else:
-         back_from_insert_function = insert_row_snowflake(insert_fruit_choice)
-         streamlit.dataframe(back_from_insert_function)
-     except URLError as e:
-         streamlit.error()
-# don't run anything past here while we troubleshoot
-    
+    insert_fruit_choice = streamlit.text_input('new fruit')
+    back_from_insert_function = insert_row_snowflake(insert_fruit_choice)
+    streamlit.dataframe(back_from_insert_function)
+     
 streamlit.stop()
