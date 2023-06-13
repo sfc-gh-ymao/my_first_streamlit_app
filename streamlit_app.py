@@ -28,10 +28,6 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 streamlit.dataframe(fruits_to_show)
 
-streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?', 'Kiwi')
-streamlit.write('The user entered', fruit_choice)
-
 # Create the repeateable code block (called a function)
 def get_fruityvice_data(this_fruit_choice):
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
@@ -50,7 +46,6 @@ try:
 except URLError as e:
   streamlit.error()
 # don't run anything past here while we troubleshoot
-streamlit.stop()
       
 streamlit.header("The food load list contains:")
 # Snowflake-related functions
@@ -59,14 +54,8 @@ def get_fruit_load_list():
         my_cur.execute("SELECT * from fruit_load_list")
         return my_cur.fetchall()
 # Add a button to load the fruit
-if st.button('Get Fruit Load List'):
+if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
- 
-# Allow the end user to add a fruit to the list
-add_my_fruit = streamlit.text_input('What fruit would you like to add?','Apple')
-streamlit.write('Thanks for adding ', add_my_fruit)
-
-#This will not work correctly, but just go with it for now
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+streamlit.stop()
